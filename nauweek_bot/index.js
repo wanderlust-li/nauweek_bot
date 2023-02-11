@@ -3,6 +3,7 @@ const TelegramApi = require("node-telegram-bot-api")
 const token = "" // token
 const bot = new TelegramApi(token, { polling: true })
 
+
 // Getting data from files to operate with
 const fs = "fs"
 var mode = "./mode"
@@ -99,7 +100,7 @@ bot.on("message", msg => {
     } 
     else if (text.includes(commands.calendar)) {
         
-        bot.sendPhoto(chatId, "link photo").then((m) => {
+        bot.sendPhoto(chatId, "").then((m) => { // link photo
             setTimeout(function () {
                 bot.deleteMessage(chatId, m.message_id)
             }, 60 * 1000)
@@ -134,7 +135,7 @@ function nauweek() {
     // if it is Sun-0, Sat-6 or Fri-5, add to the message that the week is ending up
     // Otherwise just send what week it is now
     if ([5].includes(date.getDay())) {
-        return `🚩 Закінчується ${week}-ий тиждень\n\n` +
+        return `🚩 Закінчується ${week}-й тиждень\n\n` +
         "• • • • • • • • • • • • • • • • • • •\n" +
         "⏰ Початок та кінець пар:\n" +
         "• 1 пара - 8.00 - 9.35\n" +
@@ -146,16 +147,16 @@ function nauweek() {
     } 
     else if ([0, 6].includes(date.getDay())) {
         if (week == 2) {
-            return `🚩 Закінчується ${week}-ий тиждень\n\n`+
-            `З понеділка ${week - 1}-ий тиждень`
+            return `🚩 Закінчується ${week}-й тиждень\n\n`+
+            `З понеділка ${week - 1}-й тиждень`
         }
         else {
-            return `🚩 Закінчується ${week}-ий тиждень\n\n`+
-            `З понеділка ${week + 1}-ий тиждень`
+            return `🚩 Закінчується ${week}-й тиждень\n\n`+
+            `З понеділка ${week + 1}-й тиждень`
         }
     }
     else {
-        return `🚩 Наразі ${week}-ий тиждень\n\n` +
+        return `🚩 Наразі ${week}-й тиждень\n\n` +
         "• • • • • • • • • • • • • • • • • • •\n" +
         "⏰ Початок та кінець пар:\n" +
         "• 1 пара - 8.00 - 9.35\n" +
@@ -185,7 +186,9 @@ function readme() {
 
 // Function to get start message
 function start() {
-    return "Вітаю! Додай бота до чату та через команду /nauweek дізнайся, який наразі навчальний тиждень"
+    return '👋 Вітаю! Щоб дізнатись який тиждень навчання, відправ команду /nauweek.\n' +
+    '\n👀 Щоб дізнатись коли сесія і канікули - команду /calendar\n' +
+    '\n🧑‍🦯 Додай цей бот в чат своєї групи, щоб там не питали "який тиждень?"'
 }
 
 
